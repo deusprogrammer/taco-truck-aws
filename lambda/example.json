@@ -1,0 +1,516 @@
+[
+     {
+          "origin": [
+               0,
+               0
+          ],
+          "id": "cfa018c8-eb00-4546-a58d-c0590c68e822",
+          "dimensions": [
+               0,
+               0
+          ],
+          "position": [
+               15,
+               15
+          ],
+          "type": "hole",
+          "name": "hole-M6",
+          "anchor": [
+               0,
+               0
+          ],
+          "partId": "M6"
+     },
+     {
+          "origin": [
+               0.5,
+               0
+          ],
+          "type": "hole",
+          "anchor": [
+               0,
+               0
+          ],
+          "position": [
+               0,
+               6
+          ],
+          "name": "hole-M6",
+          "dimensions": [
+               0,
+               0
+          ],
+          "id": "3d89a525-61fb-4de0-8b55-469c0ec9a2cb",
+          "partId": "M6"
+     },
+     {
+          "id": "043d0856-1fb9-4ddf-ae17-aa55e324a27a",
+          "position": [
+               -15,
+               15
+          ],
+          "origin": [
+               1,
+               0
+          ],
+          "anchor": [
+               0,
+               0
+          ],
+          "dimensions": [
+               0,
+               0
+          ],
+          "name": "hole-M6",
+          "partId": "M6",
+          "type": "hole"
+     },
+     {
+          "origin": [
+               0,
+               1
+          ],
+          "partId": "M6",
+          "type": "hole",
+          "anchor": [
+               0,
+               0
+          ],
+          "id": "c14a2324-20df-42d3-81cc-79aa2eee155e",
+          "position": [
+               15,
+               -15
+          ],
+          "name": "hole-M6",
+          "dimensions": [
+               0,
+               0
+          ]
+     },
+     {
+          "position": [
+               0,
+               -6
+          ],
+          "anchor": [
+               0,
+               0
+          ],
+          "id": "36c7c738-ccdb-48b9-ae1f-a47cb98a1188",
+          "origin": [
+               0.5,
+               1
+          ],
+          "partId": "M6",
+          "name": "hole-M6",
+          "type": "hole",
+          "dimensions": [
+               0,
+               0
+          ]
+     },
+     {
+          "id": "e9964929-767b-4858-8f48-600010faec7c",
+          "dimensions": [
+               0,
+               0
+          ],
+          "type": "hole",
+          "position": [
+               -15,
+               -15
+          ],
+          "anchor": [
+               0,
+               0
+          ],
+          "origin": [
+               1,
+               1
+          ],
+          "name": "hole-M6",
+          "partId": "M6"
+     },
+     {
+          "origin": [
+               0.5,
+               0.5
+          ],
+          "name": "Angled Hori Extended",
+          "id": "cbc418bd-939d-4c8e-ad48-d30956eb73b4",
+          "dimensions": [
+               0,
+               0
+          ],
+          "type": "custom",
+          "position": [
+               75,
+               0
+          ],
+          "anchor": [
+               0.5,
+               0.5
+          ],
+          "layout": {
+               "panelDimensions": [
+                    0,
+                    0
+               ],
+               "units": "mm",
+               "name": "Angled Hori Extended",
+               "parts": [
+                    {
+                         "partId": "SANWA-24mm",
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "name": "button-SANWA-24mm",
+                         "position": [
+                              15,
+                              70
+                         ],
+                         "id": "35644c18-dc48-4ce9-acf7-0eb0546ccedf",
+                         "type": "button",
+                         "origin": [
+                              0,
+                              0
+                         ]
+                    },
+                    {
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "id": "ff8dd943-a758-4b78-b890-aa0f88a38c06",
+                         "name": "button-SANWA-24mm",
+                         "position": [
+                              0,
+                              -30
+                         ],
+                         "type": "button",
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "partId": "SANWA-24mm",
+                         "relativeTo": "35644c18-dc48-4ce9-acf7-0eb0546ccedf",
+                         "origin": [
+                              0,
+                              0
+                         ]
+                    },
+                    {
+                         "id": "09ae158b-30e5-485b-8b9e-5a063b57a799",
+                         "name": "button-SANWA-24mm",
+                         "partId": "SANWA-24mm",
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "relativeTo": "ff8dd943-a758-4b78-b890-aa0f88a38c06",
+                         "position": [
+                              27,
+                              -14
+                         ],
+                         "type": "button",
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "origin": [
+                              0,
+                              0
+                         ]
+                    },
+                    {
+                         "partId": "SANWA-24mm",
+                         "name": "button-SANWA-24mm",
+                         "id": "a2b30d4e-8131-400c-9e79-d7a1d0ab388b",
+                         "origin": [
+                              0,
+                              0
+                         ],
+                         "relativeTo": "09ae158b-30e5-485b-8b9e-5a063b57a799",
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "position": [
+                              0,
+                              30
+                         ],
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "type": "button"
+                    },
+                    {
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "partId": "SANWA-24mm",
+                         "relativeTo": "09ae158b-30e5-485b-8b9e-5a063b57a799",
+                         "type": "button",
+                         "origin": [
+                              0,
+                              0
+                         ],
+                         "position": [
+                              27,
+                              -14
+                         ],
+                         "id": "09b39aff-e818-45ef-8b86-d9f68a6e96f5",
+                         "name": "button-SANWA-24mm"
+                    },
+                    {
+                         "type": "button",
+                         "position": [
+                              30,
+                              0
+                         ],
+                         "name": "button-SANWA-24mm",
+                         "id": "4d514d17-bade-45c2-96ef-e2c06d70d95f",
+                         "partId": "SANWA-24mm",
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "relativeTo": "09b39aff-e818-45ef-8b86-d9f68a6e96f5",
+                         "origin": [
+                              0,
+                              0
+                         ],
+                         "anchor": [
+                              0,
+                              0
+                         ]
+                    },
+                    {
+                         "partId": "SANWA-24mm",
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "position": [
+                              0,
+                              30
+                         ],
+                         "relativeTo": "09b39aff-e818-45ef-8b86-d9f68a6e96f5",
+                         "type": "button",
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "id": "2e029978-0516-455a-8085-c9faf811e228",
+                         "name": "button-SANWA-24mm",
+                         "origin": [
+                              0,
+                              0
+                         ]
+                    },
+                    {
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "position": [
+                              0,
+                              30
+                         ],
+                         "partId": "SANWA-24mm",
+                         "relativeTo": "4d514d17-bade-45c2-96ef-e2c06d70d95f",
+                         "origin": [
+                              0,
+                              0
+                         ],
+                         "type": "button",
+                         "id": "04fb5dfc-8bc9-4819-87e7-207a76ce2069",
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "name": "button-SANWA-24mm"
+                    },
+                    {
+                         "type": "button",
+                         "relativeTo": "4d514d17-bade-45c2-96ef-e2c06d70d95f",
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "id": "94e35b28-dae0-4b2e-a01b-af17af0d5903",
+                         "position": [
+                              30,
+                              15
+                         ],
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "partId": "SANWA-30mm",
+                         "origin": [
+                              0,
+                              0
+                         ],
+                         "name": "button-SANWA-30mm"
+                    },
+                    {
+                         "name": "button-SANWA-30mm",
+                         "type": "button",
+                         "partId": "SANWA-30mm",
+                         "position": [
+                              20,
+                              36
+                         ],
+                         "relativeTo": "35644c18-dc48-4ce9-acf7-0eb0546ccedf",
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "id": "9d67a6ce-2c7b-427b-bafa-f7daacfeb3b7",
+                         "origin": [
+                              0,
+                              0
+                         ]
+                    }
+               ]
+          }
+     },
+     {
+          "type": "custom",
+          "origin": [
+               0.5,
+               0.5
+          ],
+          "layout": {
+               "parts": [
+                    {
+                         "name": "button-SANWA-24mm",
+                         "relativeTo": "87377420-7fdf-4b26-8fee-09c88b166715",
+                         "position": [
+                              -30,
+                              0
+                         ],
+                         "partId": "SANWA-24mm",
+                         "origin": [
+                              0,
+                              0
+                         ],
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "type": "button",
+                         "id": "5a3774da-c302-4a2d-bb6d-b91235d1dce8"
+                    },
+                    {
+                         "partId": "SANWA-24mm",
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "name": "button-SANWA-24mm",
+                         "type": "button",
+                         "position": [
+                              -26,
+                              -13
+                         ],
+                         "relativeTo": "d2bfb4df-d4e3-4907-8cde-bbe38f19e4d1",
+                         "id": "87377420-7fdf-4b26-8fee-09c88b166715",
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "origin": [
+                              0,
+                              0
+                         ]
+                    },
+                    {
+                         "position": [
+                              -16,
+                              -53
+                         ],
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "name": "button-SANWA-24mm",
+                         "origin": [
+                              0,
+                              0
+                         ],
+                         "type": "button",
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "relativeTo": "0e33cc4c-2de4-4fd8-97eb-c7b3535bb359",
+                         "id": "d2bfb4df-d4e3-4907-8cde-bbe38f19e4d1",
+                         "partId": "SANWA-24mm"
+                    },
+                    {
+                         "partId": "SANWA-30mm",
+                         "position": [
+                              84,
+                              78
+                         ],
+                         "anchor": [
+                              0,
+                              0
+                         ],
+                         "type": "button",
+                         "name": "button-SANWA-30mm",
+                         "origin": [
+                              0,
+                              0
+                         ],
+                         "dimensions": [
+                              0,
+                              0
+                         ],
+                         "id": "0e33cc4c-2de4-4fd8-97eb-c7b3535bb359"
+                    }
+               ],
+               "panelDimensions": [
+                    0,
+                    0
+               ],
+               "name": "Hitbox LBB",
+               "units": "mm"
+          },
+          "anchor": [
+               0.5,
+               0.5
+          ],
+          "position": [
+               -34,
+               14
+          ],
+          "dimensions": [
+               0,
+               0
+          ],
+          "name": "Hitbox LBB",
+          "id": "0b687174-b15f-4bc9-9eab-b546d5487cb6"
+     }
+]

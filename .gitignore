@@ -1,0 +1,42 @@
+**/temp_password.txt
+**/react-config.json
+
+# Dependencies
+**/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+**/build
+**/dist
+**/tt-lambdas.zip
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Terraform files
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraformrc
+terraform.rc
