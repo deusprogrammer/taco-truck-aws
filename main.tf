@@ -69,8 +69,26 @@ resource "aws_iam_policy_attachment" "dynamodb_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 }
 
+# Create a zip file for the Lambda functions
+resource "null_resource" "lambda_zip" {
+  # Trigger this resource when any Lambda file changes
+  triggers = {
+    lambda_files = "${timestamp()}"
+  }
+
+  # Create the zip file
+  provisioner "local-exec" {
+    command = <<EOT
+      cd ${path.module}/lambda && \
+      zip -r ../tt-lambdas.zip . -x "node_modules/*" && \
+      echo "Lambda functions zipped successfully"
+    EOT
+  }
+}
+
 # Create the Lambda function
 resource "aws_lambda_function" "tt-store" {
+  depends_on = [ null_resource.lambda_zip ]
   function_name = "tt-store-lambda"
   runtime       = "nodejs18.x"
   role          = aws_iam_role.lambda_exec.arn
@@ -88,6 +106,7 @@ resource "aws_lambda_function" "tt-store" {
 
 # Create the Lambda function
 resource "aws_lambda_function" "tt-get-all" {
+  depends_on = [ null_resource.lambda_zip ]
   function_name = "tt-get-all-lambda"
   runtime       = "nodejs18.x"
   role          = aws_iam_role.lambda_exec.arn
@@ -455,13 +474,153 @@ output "cognito_app_client_id" {
   description = "The Cognito User Pool App Client ID"
 }
 
+# Create an S3 bucket for the React app
+resource "aws_s3_bucket" "react_app_bucket" {
+  bucket = "taco-truck-react-app"
+}
+
+# Configure the bucket for website hosting
+resource "aws_s3_bucket_website_configuration" "react_app_website" {
+  bucket = aws_s3_bucket.react_app_bucket.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "index.html"
+  }
+}
+
+# Make the bucket public
+resource "aws_s3_bucket_public_access_block" "react_app_public_access" {
+  bucket = aws_s3_bucket.react_app_bucket.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+# Add bucket policy to allow public read access
+resource "aws_s3_bucket_policy" "react_app_bucket_policy" {
+  bucket = aws_s3_bucket.react_app_bucket.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.react_app_bucket.arn}/*"
+      }
+    ]
+  })
+
+  depends_on = [aws_s3_bucket_public_access_block.react_app_public_access]
+}
+
+# Create CloudFront distribution for the React app
+resource "aws_cloudfront_distribution" "react_app_distribution" {
+  origin {
+    domain_name = aws_s3_bucket_website_configuration.react_app_website.website_endpoint
+    origin_id   = "S3-${aws_s3_bucket.react_app_bucket.id}"
+
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
+
+  enabled             = true
+  is_ipv6_enabled     = true
+  default_root_object = "index.html"
+
+  default_cache_behavior {
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "S3-${aws_s3_bucket.react_app_bucket.id}"
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
+  }
+
+  # Handle SPA routing by redirecting all paths to index.html
+  custom_error_response {
+    error_code         = 403
+    response_code      = 200
+    response_page_path = "/index.html"
+  }
+
+  custom_error_response {
+    error_code         = 404
+    response_code      = 200
+    response_page_path = "/index.html"
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
+  viewer_certificate {
+    cloudfront_default_certificate = true
+  }
+}
+
+# Output the CloudFront URL
+output "cloudfront_url" {
+  value = aws_cloudfront_distribution.react_app_distribution.domain_name
+}
+
+# Update the React config file with the correct values
 resource "local_file" "react_config" {
-  depends_on = [aws_cognito_user_pool_domain.taco_truck_domain]
-  filename   = "${path.module}/react-config.json"
+  depends_on = [
+    aws_cognito_user_pool_domain.taco_truck_domain,
+    aws_api_gateway_stage.taco_truck_stage_dev
+  ]
+  filename   = "${path.module}/react/taco-truck-react/src/config/react-config.json"
   content    = jsonencode({
     cognito_domain_url = "https://${aws_cognito_user_pool_domain.taco_truck_domain.domain}.auth.us-east-1.amazoncognito.com",
     user_pool_id       = aws_cognito_user_pool.taco_truck_user_pool.id,
     user_pool_client_id = aws_cognito_user_pool_client.taco_truck_app_client.id,
     api_gateway_id = aws_api_gateway_rest_api.taco_truck_api.id,
+    cloudfront_url = aws_cloudfront_distribution.react_app_distribution.domain_name
   })
+}
+
+# Build and deploy the React app
+resource "null_resource" "deploy_react_app" {
+  depends_on = [
+    local_file.react_config,
+    aws_s3_bucket.react_app_bucket,
+    aws_cloudfront_distribution.react_app_distribution
+  ]
+
+  # Build the React app
+  provisioner "local-exec" {
+    command = "cd ${path.module}/react/taco-truck-react && npm install && npm run build"
+  }
+
+  # Deploy to S3
+  provisioner "local-exec" {
+    command = "aws s3 sync ${path.module}/react/taco-truck-react/build/ s3://${aws_s3_bucket.react_app_bucket.bucket} --delete"
+  }
+
+  # Invalidate CloudFront cache
+  provisioner "local-exec" {
+    command = "aws cloudfront create-invalidation --distribution-id ${aws_cloudfront_distribution.react_app_distribution.id} --paths '/*'"
+  }
 }
